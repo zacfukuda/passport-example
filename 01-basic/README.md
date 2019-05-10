@@ -12,7 +12,7 @@ $ yarn
 $ node server.js
 ```
 
-Visit [localhost:3000](http://localhost:3000)—which redirects you to `/login`, and then login with usernmae/password combination of `jack/secret` or  `jill/birthday`.
+Visit [localhost:3000](http://localhost:3000)—which redirects you to `/login`, and then login with username/password combination of `jack/secret` or  `jill/birthday`.
 
 ## Reference
 
