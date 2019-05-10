@@ -19,4 +19,4 @@ $ yarn
 $ node server.js 
 ```
 
-> Make sure you have `passport` MongoDB database.
+> Make sure you have `passport` MongoDB database. If you haven’t, please follow the [Getting started > Database](https://github.com/zacfukuda/passport#database).
