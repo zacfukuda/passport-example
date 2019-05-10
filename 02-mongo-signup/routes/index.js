@@ -1,0 +1,53 @@
+const express = require('express'),
+			passport = require('passport'),
+			ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
+			User = require('../db/User'),
+			router = express.Router()
+
+/* Home */
+router.get('/', ensureLoggedIn(), (req, res) => {
+	res.render('index', {
+		title: 'Home',
+		user: req.user
+	})
+})
+
+/* Signup */
+router.get('/signup', (req, res) => {
+	res.render('signup', { title: 'Signup' })
+})
+
+router.post('/signup', (req, res) => {
+	let user = new User({
+		username: req.body.username,
+		password:req.body.password
+	})
+
+	user.save().then(() => {
+		req.login(user, (err) => {
+			if (err) { return res.redirect('/signup') }
+			res.redirect('/')
+		})
+	}).catch((err) => {
+		res.redirect('/signup')
+	})
+})
+
+/* Login */
+router.get('/login', (req, res) => {
+	res.render('login', { title: 'Login' })
+})
+
+router.post('/login', passport.authenticate('local', {
+	successRedirect: '/',
+	failureRedirect: '/login',
+	failureFlash: true
+}))
+
+/* Logout */
+router.get('/logout', (req, res) => {
+	req.logout()
+	res.redirect('/login')
+})
+
+module.exports = router

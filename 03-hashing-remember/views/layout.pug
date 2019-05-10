@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= title
+  body
+    nav
+      ul(style="display: flex;list-style:none;")
+        li(style="margin: 0 1em;")
+          a(href="/") Home
+        unless user
+          li(style="margin: 0 1em;")
+            a(href="/signup") Signup
+        unless user
+          li(style="margin: 0 1em;")
+            a(href="/login") Login
+        if user
+          li(style="margin: 0 1em;")
+            a(href="/logout") Logout
+    block content

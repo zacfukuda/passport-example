@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  form(action="/login", method="post")
+    div
+      label Username:
+      input(type="text", name="username", pattern=".{2,16}", required)
+    div
+      label Password:
+      input(type="password", name="password", pattern=".{6,20}", required)
+    div
+      label
+        input(type="checkbox", name="remember")
+        |  Keep me logged-in for 1 day
+    div
+      input(type="submit", value="Log in")
