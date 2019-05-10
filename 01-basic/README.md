@@ -1,15 +1,21 @@
 # Basic Authentication
 
-Basic username/passpowrd auth application using passport.js and passport-local. The user information is stored 
+Basic username/passpowrd auth application using passport.js and passport-local strategy. The user information is stored(defined) in the `./db/users.js` 
 
-## Getting
+## Getting started
+
+Run the application as follows:
 
 ```bash
+$ cd pass/to/01-basic
 $ yarn
 $ node server.js
 ```
 
+Visit [localhost:3000](http://localhost:3000)—which redirects you to `/login`, and then login with usernmae/password combination of `jack/secret` or  `jill/birthday`.
+
 ## Reference
+
 - http://www.passportjs.org/docs/
 - http://www.passportjs.org/packages/passport-local/
 - https://github.com/jaredhanson/passport-local/
