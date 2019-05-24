@@ -33,40 +33,39 @@ const db = require('./db')
 
 // Passport
 const passport = require('passport'),
-			Strategy = require('passport-local').Strategy,
-			ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn
+			Strategy = require('passport-local').Strategy
 
 passport.use(new Strategy( (username, password, done) => {
 	db.users.findByUsername(username, (err, user) => {
 
 		// If any error
-    if (err) { return done(err) }
+		if (err) { return done(err) }
 
-    // If no user found
-    if (!user) {
-    	return done(null, false, {
-    		message: 'No user found.'
-    	})
-    }
+		// If no user found
+		if (!user) {
+			return done(null, false, {
+				message: 'No user found.'
+			})
+		}
 
-    // Password not matched
-    if (user.password != password) {
-    	return done(null, false, {
-    		message: 'Password not matched.'
-    	})
-    }
+		// Password not matched
+		if (user.password != password) {
+			return done(null, false, {
+				message: 'Password not matched.'
+			})
+		}
 
-    return done(null, user)
-  })
+		return done(null, user)
+	})
 }))
 
 passport.serializeUser( (user, done) => done(null, user.id) )
 
 passport.deserializeUser( (id, done) => {
-  db.users.findById(id, (err, user) => {
-    if (err) { return done(err) }
-    done(null, user)
-  })
+	db.users.findById(id, (err, user) => {
+		if (err) { return done(err) }
+		done(null, user)
+	})
 })
 
 app.use(passport.initialize())

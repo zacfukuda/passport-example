@@ -15,8 +15,8 @@ For `01-basic` to`03-hashing-remember`, the applications use [passport-local](ht
 
 In order to run the applications, you must have followings (inside the round brackets are the versions of software tested):
 
-- Node.js (10.15.0)
-- MongoDB Community Server (4.0.9)
+- [Node.js](https://nodejs.org/en/) (10.15.0)
+- [MongoDB Community Server](https://docs.mongodb.com/manual/administration/install-community/) (4.0.9)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - (Yarn)
 
@@ -47,14 +47,14 @@ Please make a database called `passport` on the Mongo shell.
 > exit;
 ```
 
-> Simply running `use passport` don’t create a new database. Hence, you need to insert a dummy document to it.
+> Simply running `use passport` doesn’t create a new database. So, you need to insert a dummy document to it.
 
 ### Application
 
 The below is how to run the `01-basic` application using Git and Yarn.
 
 ``` bash
-$ git clone https://github.com/zacfukuda/passport.git
+$ git clone https://github.com/zacfukuda/passport-example.git
 $ cd passport/01-bacis
 $ yarn
 $ yarn start
