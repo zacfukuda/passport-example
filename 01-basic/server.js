@@ -12,9 +12,17 @@ const cookieParser = require('cookie-parser'),
 			bodyParser = require('body-parser')
 
 app.use(cookieParser())
-app.use(session({ secret: 'cats', resave: false, saveUninitialized: false }))
+app.use(session({
+	secret: 'cats',
+	resave: false,
+	saveUninitialized: false
+}))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
+
+// If want to show flash message
+const flash = require('connect-flash')
+app.use(flash())
 
 // View engine
 app.set('views', path.join(__dirname, 'views'))
@@ -30,9 +38,24 @@ const passport = require('passport'),
 
 passport.use(new Strategy( (username, password, done) => {
 	db.users.findByUsername(username, (err, user) => {
+
+		// If any error
     if (err) { return done(err) }
-    if (!user) { return done(null, false) }
-    if (user.password != password) { return done(null, false) }
+
+    // If no user found
+    if (!user) {
+    	return done(null, false, {
+    		message: 'No user found.'
+    	})
+    }
+
+    // Password not matched
+    if (user.password != password) {
+    	return done(null, false, {
+    		message: 'Password not matched.'
+    	})
+    }
+
     return done(null, user)
   })
 }))
@@ -43,50 +66,57 @@ passport.deserializeUser( (id, done) => {
   db.users.findById(id, (err, user) => {
     if (err) { return done(err) }
     done(null, user)
-  });
-});
+  })
+})
 
 app.use(passport.initialize())
 app.use(passport.session())
 
 // Routers
-app.get('/', ensureLoggedIn(), (req, res) => {
+app.get('/', (req, res) => {
 
-	// See what data is added to the reqeust
+	// See what’s added to the reqeust
+	// console.log(req.cookies)
 	// console.log(req.session)
 	// console.log(req.isisAuthenticated || req.isAuthenticated())
+
+	// Check if a user is logged-in, is authenticated
+	if ( !req.isAuthenticated() ) { res.redirect('/login') }
 	
 	res.render('index', {
 		title: 'Home',
 		user: req.user
 	})
 })
+// Or, authentication check as a middleware
+/* app.get('/', (req, res, next) => {
 
-// The developer’s original middleware to check whether the user is logged in. Only for passport.js
-//
-// app.get('/', (req, res, next) => {
-// 	if ( req.session.passport && req.session.passport.constructor === Object && Object.entries(req.session.passport).length > 0 ) { next() }
-// 	else { res.redirect('/login') }
-// }, (req, res) => {
-// 	res.render('index', {
-// 		title: 'Home',
-// 		user: req.user
-// 	})
-// })
+	// Check if a user is logged-in, is authenticated
+	if ( !req.isAuthenticated() ) { res.redirect('/login') }
+
+	return next()
+
+}, (req, res) => {
+	res.render('index', {
+		title: 'Home',
+		user: req.user
+	})
+}) */
 
 app.get('/login', (req, res) => {
 
-	// See what data is added to the reqeust
-	// console.log(req.session)
-	// console.log(req.isisAuthenticated || req.isAuthenticated())
+	// If any error
+	console.log(req.flash('error'))
 
 	res.render('login', { title: 'Login' })
 })
+
 app.post('/login', passport.authenticate('local', {
 	successRedirect: '/',
 	failureRedirect: '/login',
 	failureFlash: true
 }))
+
 app.get('/logout', (req, res) => {
 	req.logout()
 	res.redirect('/login')

@@ -54,7 +54,7 @@ Please make a database called `passport` on the Mongo shell.
 The below is how to run the `01-basic` application using Git and Yarn.
 
 ``` bash
-$ git clone 
+$ git clone https://github.com/zacfukuda/passport.git
 $ cd passport/01-bacis
 $ yarn
 $ yarn start

@@ -1,15 +1,13 @@
 const express = require('express'),
 			passport = require('passport'),
-			ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 			User = require('../db/User'),
 			router = express.Router()
 
 /* Home */
-router.get('/', ensureLoggedIn(), (req, res) => {
-	// Debug
-	// console.log('Header: ')
-	// console.log(req.headers)
-	// console.log(req.session)
+router.get('/', (req, res) => {
+
+	// Check if a user is logged-in, is authenticated
+	if ( !req.isAuthenticated() ) { res.redirect('/login') }
 
 	res.render('index', {
 		title: 'Home',
@@ -31,7 +29,7 @@ router.post('/signup', (req, res) => {
 	user.save().then(() => {
 		req.login(user, (err) => {
 			if (err) {
-				return res.redirect('/signup')
+				res.redirect('/signup')
 			}
 			res.redirect('/')
 		})
@@ -42,12 +40,14 @@ router.post('/signup', (req, res) => {
 
 /* Login */
 router.get('/login', (req, res) => {
+
+	// If any error
+	// console.log(req.flash('error'))
+
 	res.render('login', { title: 'Login' })
 })
 
-/**
- * @link https://stackoverflow.com/questions/15609232/how-to-add-remember-me-to-my-app-with-passport
- */
+// Refer: https://stackoverflow.com/questions/15609232/how-to-add-remember-me-to-my-app-with-passport
 router.post('/login', passport.authenticate('local', {
 	// successRedirect: '/',
 	failureRedirect: '/login',

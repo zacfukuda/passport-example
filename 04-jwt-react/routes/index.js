@@ -1,6 +1,5 @@
 const express = require('express'),
 			passport = require('passport'),
-			// ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 			jwt = require('jsonwebtoken'),
 			User = require('../db/User'),
 			router = express.Router()
@@ -31,23 +30,20 @@ router.post('/signup', (req, res) => {
 })
 
 // Login
-router.post('/login', passport.authenticate('local', {session: false}), (req, res) => {
+router.post('/login', passport.authenticate('local', {
+	session: false
+}), (req, res) => {
 
-	// Data stored in localStorage will persisit 
-	// until the user remove it
-	//
-	// if ( req.body.remember ) {
-	// 	req.session.cookie.originalMaxAge = 24 * 60 * 60 * 1000 // Expires in 1 day
-	// } else {
-	// 	req.session.cookie.expires = false
-	// }
-
+	// Token
 	const token = jwt.sign({id: req.user.id}, 'jwt_secret')
+
 	res.json({token: token})
 })
 
 // Return user Information
-router.get('/user', passport.authenticate('jwt',{ session: false }), (req, res) => {
+router.get('/user', passport.authenticate('jwt', {
+	session: false
+}), (req, res) => {
 	if ( !req.user ) {
 		res.json({
 			username: 'nobody'

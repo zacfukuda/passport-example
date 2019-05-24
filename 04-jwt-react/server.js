@@ -1,7 +1,3 @@
-/**
- *
- */
-
 // Common modules
 const path = require('path')
 
@@ -16,26 +12,14 @@ const express = require('express'),
 
 // Middlewares
 const cookieParser = require('cookie-parser'),
-			// session = require('express-session'),
 			bodyParser = require('body-parser'),
-			// MongoStore = require('connect-mongo')(session),
+			flash = require('connect-flash'),
 			passportControl = require('./lib/passport-control')
 
 app.use(cookieParser())
-// app.use(session({
-// 	secret: 'cats',
-// 	resave: false,
-// 	saveUninitialized: false,
-// 	store: new MongoStore({ mongooseConnection: mongoose.connection })
-// }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(passportControl.initialize())
-// app.use(passportControl.session())
-
-// View engine
-// app.set('views', path.join(__dirname, 'views'))
-// app.set('view engine', 'pug')
 
 // Routers
 app.use('/api', require('./routes'))

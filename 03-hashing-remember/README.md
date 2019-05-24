@@ -8,8 +8,6 @@ Run the application as follows:
 
 ```bash
 # On one window
-$ mongod
-# or
 $ mongod --config /usr/local/etc/mongod.conf
 
 # On another
@@ -18,3 +16,7 @@ $ node server.js
 ```
 
 > Make sure you have `passport` MongoDB database. If you haven’t, please follow the [Getting started > Database](https://github.com/zacfukuda/passport#database).
+
+## Resources
+
+- https://www.npmjs.com/package/connect-mongo

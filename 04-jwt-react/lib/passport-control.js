@@ -8,13 +8,22 @@ const passport = require('passport'),
 // Local Strategy
 passport.use(new Strategy( (username, password, done) => {
 	User.findOne({username: username}, (err, user) => {
-		if (err) { return done(err) }
-		if (!user) { return done(null, false) }
+
+		// If any error
+    if (err) { return done(err) }
+
+		if (!user) {
+			return done(null, false, {
+				message: 'No user found.'
+			})
+		}
 
 		user.login(password).then(() => {
 			 return done(null, user)
 		}).catch((err) => {
-			return done(err)
+			return done(err, false, {
+				message: 'Password not matched.'
+			})
 		})
 	})
 }))
@@ -27,22 +36,10 @@ passport.use(new JWTStrategy({
 	User.findById(jwt_payload.id).then(user => {
 		return done(null, user)
 	}).catch(err => {
-		console.log(err)
-		return done(err)
+		return done(err, false, {
+			message: 'Token not matched.'
+		})
 	})
 }))
-
-// Since the app no longer uses session,
-// We don’t need the code below
-// 
-// Session
-// passport.serializeUser( (user, done) => done(null, user.id) )
-
-// passport.deserializeUser( (id, done) => {
-// 	User.findById(id, (err, user) => {
-// 		if (err) { return done(err) }
-// 		done(null, user)
-// 	})
-// })
 
 module.exports = passport

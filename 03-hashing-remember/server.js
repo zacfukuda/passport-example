@@ -1,13 +1,3 @@
-/**
- * @link http://www.passportjs.org/docs/
- * @link http://www.passportjs.org/packages/passport-local/
- * @link https://github.com/jaredhanson/passport-local/
- * @link https://github.com/passport/express-4.x-local-example
- * @link https://github.com/expressjs/express/tree/master/examples/auth
- * @link http://expressjs.com/en/starter/hello-world.html
- * @link https://www.npmjs.com/package/connect-mongo
- */
-
 // Common modules
 const path = require('path')
 
@@ -24,6 +14,7 @@ const express = require('express'),
 const cookieParser = require('cookie-parser'),
 			session = require('express-session'),
 			bodyParser = require('body-parser'),
+			flash = require('connect-flash'),
 			MongoStore = require('connect-mongo')(session),
 			passportControl = require('./lib/passport-control')
 
@@ -35,6 +26,7 @@ app.use(session({
 	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(flash())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(passportControl.initialize())
 app.use(passportControl.session())

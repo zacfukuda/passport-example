@@ -21,3 +21,4 @@ Visit [localhost:3000](http://localhost:3000)—which redirects you to `/login`,
 - https://github.com/jaredhanson/passport-local/
 - https://github.com/passport/express-4.x-local-example
 - https://github.com/expressjs/express/tree/master/examples/auth
+- https://github.com/jaredhanson/connect-flash

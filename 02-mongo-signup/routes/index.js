@@ -1,11 +1,14 @@
 const express = require('express'),
 			passport = require('passport'),
-			ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
 			User = require('../db/User'),
 			router = express.Router()
 
 /* Home */
-router.get('/', ensureLoggedIn(), (req, res) => {
+router.get('/', (req, res) => {
+	
+	// Check if a user is logged-in, is authenticated
+	if ( !req.isAuthenticated() ) { res.redirect('/login') }
+
 	res.render('index', {
 		title: 'Home',
 		user: req.user
@@ -25,7 +28,7 @@ router.post('/signup', (req, res) => {
 
 	user.save().then(() => {
 		req.login(user, (err) => {
-			if (err) { return res.redirect('/signup') }
+			if (err) { res.redirect('/signup') }
 			res.redirect('/')
 		})
 	}).catch((err) => {
@@ -35,6 +38,10 @@ router.post('/signup', (req, res) => {
 
 /* Login */
 router.get('/login', (req, res) => {
+
+	// If any error
+	console.log(req.flash('error'))
+
 	res.render('login', { title: 'Login' })
 })
 
