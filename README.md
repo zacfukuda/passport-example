@@ -4,10 +4,10 @@ This repository contains the codes of sample appliations which deal with authent
 
 The codes are slit into four parts:
 
-- [01-basic](https://github.com/zacfukuda/passport/tree/master/01-basic)
-- [02-mongo-signup](https://github.com/zacfukuda/passport/tree/master/02-mongo-signup)
-- [03-hashing-remember](https://github.com/zacfukuda/passport/tree/master/03-hashing-remember)
-- [04-react](https://github.com/zacfukuda/passport/tree/master/04-react)
+- [01-basic](https://github.com/zacfukuda/passport-example/tree/master/01-basic)
+- [02-mongo-signup](https://github.com/zacfukuda/passport-example/tree/master/02-mongo-signup)
+- [03-hashing-remember](https://github.com/zacfukuda/passport-example/tree/master/03-hashing-remember)
+- [04-jwt-react](https://github.com/zacfukuda/passport-example/tree/master/04-jwt-react)
 
 For `01-basic` to`03-hashing-remember`, the applications use [passport-local](https://github.com/jaredhanson/passport-local) module, which authenticates users via username and password. For 04, in order to show how to authenticate with passport.js in the front-end driven single page application, the app uses [passport-jwt](https://www.npmjs.com/package/passport-jwt). [JSON Web Token](https://jwt.io/) is a industry standard RFC 7519 method, that is intended to be used to secure RESTful endpoints.
 
@@ -24,7 +24,7 @@ In order to run the applications, you must have followings (inside the round bra
 
 ## Getting started
 
-From `02-momngo-singup` upon, the applications use MongoDB to store user information. Before running the apps, please make sure you are running MongoDB.
+From `02-momngo-signup` upon, the applications use MongoDB to store user information. Before running the apps, please make sure you are running MongoDB.
 
 ```bash
 $ mongod
