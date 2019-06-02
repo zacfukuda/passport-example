@@ -60,7 +60,6 @@ passport.use(new Strategy( (username, password, done) => {
 }))
 
 passport.serializeUser( (user, done) => done(null, user.id) )
-
 passport.deserializeUser( (id, done) => {
   db.users.findById(id, (err, user) => {
     if (err) { return done(err) }
@@ -80,7 +79,10 @@ app.get('/', (req, res) => {
   // console.log(req.isisAuthenticated || req.isAuthenticated())
 
   // Check if a user is logged-in, is authenticated
-  if ( !req.isAuthenticated() ) { res.redirect('/login') }
+  if ( !req.isAuthenticated() ) {
+    res.redirect('/login')
+    return
+  }
   
   res.render('index', {
     title: 'Home',
@@ -91,7 +93,10 @@ app.get('/', (req, res) => {
 /* app.get('/', (req, res, next) => {
 
   // Check if a user is logged-in, is authenticated
-  if ( !req.isAuthenticated() ) { res.redirect('/login') }
+  if ( !req.isAuthenticated() ) {
+    res.redirect('/login')
+    return
+  }
 
   return next()
 
