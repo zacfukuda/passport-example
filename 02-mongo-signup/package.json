@@ -1,5 +1,5 @@
 {
-  "name": "01-basic",
+  "name": "02-mongo-signup",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

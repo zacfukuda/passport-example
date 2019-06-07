@@ -7,7 +7,10 @@ const express = require('express'),
 router.get('/', (req, res) => {
 	
 	// Check if a user is logged-in, is authenticated
-	if ( !req.isAuthenticated() ) { res.redirect('/login') }
+	if ( !req.isAuthenticated() ) {
+		res.redirect('/login')
+		return
+	}
 
 	res.render('index', {
 		title: 'Home',

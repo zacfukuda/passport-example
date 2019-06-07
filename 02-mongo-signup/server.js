@@ -3,7 +3,10 @@ const path = require('path')
 
 // MongoDB
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/passport', {useNewUrlParser: true, useCreateIndex: true})
+mongoose.connect('mongodb://localhost:27017/passport',{
+	useNewUrlParser: true,
+	useCreateIndex: true
+})
 
 // Initializing Express
 const express = require('express'),

@@ -29,7 +29,6 @@ passport.use(new Strategy( (username, password, done) => {
 
 // Session
 passport.serializeUser( (user, done) => done(null, user.id) )
-
 passport.deserializeUser( (id, done) => {
   User.findById(id, (err, user) => {
     if (err) { return done(err) }
