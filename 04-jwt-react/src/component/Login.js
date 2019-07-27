@@ -29,7 +29,9 @@ export default class Login extends Component {
     // param.append('password', formData.get('password'))
     // param.append('remember', formData.get('remember'))
 
-    // SEND request to the server
+    // You must need to valide data but I skip in here
+    
+    // Send request to the server
     fetch('/api/login', {
       method: 'POST',
       body: params

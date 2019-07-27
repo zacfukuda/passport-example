@@ -13,17 +13,11 @@ router.post('/signup', (req, res) => {
 	})
 
 	user.save().then(() => {
-		req.login(user, (err) => {
-			if (err) {
-				res.status(300).json({
-					status: 'error',
-					message: ''
-				})
-			}
-			res.json({
-				status: 'success',
-			})
-		})
+
+		// Token
+		const token = jwt.sign({id: user.id}, 'jwt_secret')
+		res.json({token: token})
+
 	}).catch((err) => {
 		res.status().json({})
 	})
@@ -40,7 +34,7 @@ router.post('/login', passport.authenticate('local', {
 	res.json({token: token})
 })
 
-// Return user Information
+// Return user information
 router.get('/user', passport.authenticate('jwt', {
 	session: false
 }), (req, res) => {
@@ -53,12 +47,6 @@ router.get('/user', passport.authenticate('jwt', {
 	res.json({
 		username: req.user.username
 	})
-})
-
-// Logout
-router.post('/logout', (req, res) => {
-	req.logout()
-	res.status(300).json({})
 })
 
 module.exports = router
