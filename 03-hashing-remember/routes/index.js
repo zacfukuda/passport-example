@@ -7,7 +7,10 @@ const express = require('express'),
 router.get('/', (req, res) => {
 
 	// Check if a user is logged-in, is authenticated
-	if ( !req.isAuthenticated() ) { res.redirect('/login') }
+	if ( !req.isAuthenticated() ) {
+		res.redirect('/login')
+		return
+	}
 
 	res.render('index', {
 		title: 'Home',
@@ -53,11 +56,14 @@ router.post('/login', passport.authenticate('local', {
 	failureRedirect: '/login',
 	failureFlash: true
 }), (req, res) => {
+
+	// Set up the max age of cookie
 	if ( req.body.remember ) {
 		req.session.cookie.originalMaxAge = 24 * 60 * 60 * 1000 // Expires in 1 day
 	} else {
 		req.session.cookie.expires = false
 	}
+	
 	res.redirect('/')
 })
 
