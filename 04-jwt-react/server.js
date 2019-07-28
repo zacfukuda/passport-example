@@ -11,12 +11,10 @@ const express = require('express'),
 			port = 4000
 
 // Middlewares
-const cookieParser = require('cookie-parser'),
-			bodyParser = require('body-parser'),
+const bodyParser = require('body-parser'),
 			flash = require('connect-flash'),
 			passportControl = require('./lib/passport-control')
 
-app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(passportControl.initialize())
