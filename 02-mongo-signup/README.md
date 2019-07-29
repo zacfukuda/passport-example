@@ -1,20 +1,23 @@
 # Implementing MongoDB and Sing-up Form
 
-To be more practical, the application stores user information in MongoDM, through [Mongoose](https://mongoosejs.com/) model. In addition, it has a sing-up form so that users can register the app on browsers, making them logged-in as they sign-up.
+User information is stored in MongoDB, through [Mongoose](https://mongoosejs.com/) model. and the application has a sing-up form so that users can register from browsers, forcing them logged-in as they sign up.
 
-At this version, the application don’t hash password, saving it as it is input—which is highly dangerous—and the logged-in session will disappear as the browser gets closed or the application restarts. These techniques are cover in [03-hashing-remember](https://github.com/zacfukuda/passport/tree/master/03-hashing-remember).
+[Go to the official tutorial](https://www.mokuji.me/article/passport-mongo-signup)
+
+> At this version, the application don’t hash password, saving it as it is input—which is highly dangerous. Also, sessions will disappear as the browser gets closed or the application restarts. These issuses are cover in [03-hashing-remember](https://github.com/zacfukuda/passport/tree/master/03-hashing-remember).
 
 ## Getting started
 
 Run the application as follows:
 
 ```bash
-# On one window
+# On one Terminal window
 $ mongod
 # or
 $ mongod --config /usr/local/etc/mongod.conf
 
-# On another
+# On another window
+$ cd pass/to/passport-example/02-mongo-signup
 $ yarn
 $ node server.js 
 ```

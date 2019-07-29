@@ -1,22 +1,27 @@
-# Single Page App Authentication with [JWT](https://jwt.io/) & [React.js](https://reactjs.org/)
+# Single Page App Authentication with JWT & React.js
 
-As a single page application, this app uses JWT, which will be issued at the correct username/password input, to authenticate users. The front-end application relys on React.js and [React Router](https://github.com/ReactTraining/react-router) library.
+
+As a single page application, the application issues [JSON Web Token](https://jwt.io/) at the  username/password authentication. The front-end application is built on [React.js](https://reactjs.org/) and [React Router](https://github.com/ReactTraining/react-router) library.
+
+[Go to the official tutorial](https://www.mokuji.me/article/passport-jwt-react)
 
 ## Getting started
 
 Run the application as follows:
 
 ```bash
-# On one window
+# On one Terminal window
 $ mongod
 # or
 $ mongod --config /usr/local/etc/mongod.conf
 
-# On another
+# On another window
+$ cd pass/to/passport-example/03-hash-remember
 $ yarn
 $ yarn start
 
-# On yet another
+# On yet another window
+$ cd pass/to/passport-example/03-hash-remember
 $ node server.js 
 ```
 

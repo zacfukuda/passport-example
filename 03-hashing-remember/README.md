@@ -1,16 +1,21 @@
 # Hashing Password & Persistent logged-in
 
-To be more and more practical, this version of app stores hashed password and verify it upon log-in using [bcrypt](https://www.npmjs.com/package/bcrypt). In addition, in order to make users logged in persistently, the app stores sessions in—in this case—MongoDB.
+The application stores hashed password and verify it upon log-in using [bcrypt](https://www.npmjs.com/package/bcrypt). By impmenting the persistent session (in MongoDB session store) user can keep them logged-in.
+
+[Go to the official tutorial](https://www.mokuji.me/article/passport-hashing-remember)
 
 ## Getting started
 
 Run the application as follows:
 
 ```bash
-# On one window
+# On one Terminal window
+$ mongod
+# or
 $ mongod --config /usr/local/etc/mongod.conf
 
-# On another
+# On another window
+$ cd pass/to/passport-example/03-hash-remember
 $ yarn
 $ node server.js 
 ```
